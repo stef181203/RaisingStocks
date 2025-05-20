@@ -1,0 +1,99 @@
+# Во 'ports: ####:####' делот ја мапираме портата на хостот со внатрешната порта на контејнерот.
+# Со тоа секој што ќе испрати барање до одредена порта на хостот, ќе биде насочен до соодветната
+# внатрешна порта на контејнерот и неговото барање ќе биде процесирано. Во следните неколку линии
+# се објаснувањата за мапирањето на секој од сервисите:
+# PostgreSQL database - мапирана на default port: 5432
+# Eureka Discovery Server - мапиран на default port: 8761
+# RaisingStocks (stocks-service) - мапиран на port: 8081
+# Data Service - мапиран на port: 8082
+# Technical Indicators Service - мапиран на port: 8083
+# Портата 8080 е намерно изоставена поради тоа што е default port за стартување на апликации на
+# localhost. Со тоа ја избегнуваме можноста нашата веб-апликација да падне во случај некоја друга
+# апликација да ја преоптовари портата 8080.
+
+services:
+  # Database
+  database:
+    container_name: stocks-postgres-database
+    image: postgres:16.4
+    restart: always
+    environment:
+      - POSTGRES_DB=dians
+      - POSTGRES_USER=username
+      - POSTGRES_PASSWORD=password
+    ports:
+      - '5432:5432'
+    networks:
+      - stocks-network
+    volumes:
+      - db:/var/lib/postgresql/data
+
+  eureka-discovery-server:
+    image: petrovski1812/eureka-discovery-server:latest
+    container_name: eureka-discovery-server
+    ports:
+      - "8761:8761"
+    environment:
+      - SPRING_PROFILES_ACTIVE=default
+      - spring.application.name=eureka-discovery-server
+      - eureka.client.registerWithEureka=false
+      - eureka.client.fetchRegistry=false
+    networks:
+      - stocks-network
+
+  stocks-service:
+    image: petrovski1812/stocks:latest
+    container_name: stocks-service
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_PROFILES_ACTIVE=default
+      - SERVER_PORT=8081
+      - eureka.instance.preferIpAddress=true
+      - eureka.client.service-url.defaultZone=http://eureka-discovery-server:8761/eureka
+    depends_on:
+      - eureka-discovery-server
+    networks:
+      - stocks-network
+
+  data-service:
+    image: petrovski1812/data-service:latest
+    container_name: data-service
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_PROFILES_ACTIVE=default
+      - SERVER_PORT=8082
+      - eureka.instance.preferIpAddress=true
+      - eureka.client.service-url.defaultZone=http://eureka-discovery-server:8761/eureka
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/dians
+      - SPRING_DATASOURCE_USERNAME=username
+      - SPRING_DATASOURCE_PASSWORD=password
+    depends_on:
+      - database
+      - eureka-discovery-server
+    networks:
+      - stocks-network
+
+  indicator-service:
+    image: petrovski1812/technical-indicators-service:latest
+    container_name: indicator-service
+    ports:
+      - "8083:8083"
+    environment:
+      - SPRING_PROFILES_ACTIVE=default
+      - SERVER_PORT=8083
+      - eureka.instance.preferIpAddress=true
+      - eureka.client.service-url.defaultZone=http://eureka-discovery-server:8761/eureka
+    depends_on:
+      - eureka-discovery-server
+    networks:
+      - stocks-network
+
+networks:
+  stocks-network:
+    driver: bridge
+
+volumes:
+  db:
+    driver: local

@@ -1,0 +1,127 @@
+html, body, #bodyContainer {
+    min-height: 100vh;
+}
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    color: #555555;
+}
+
+.custom-shadow {
+    box-shadow: 0 .15rem 1.75rem 0 rgba(58, 59, 69, .15) !important;
+}
+
+
+#sidebar {
+    background-color: #466cd9;
+}
+
+#sidebar > a {
+    margin-bottom: 3rem;
+    text-decoration: none;
+    color: #fff;
+}
+
+#sidebar > a span{
+    font-size: 140%; font-weight: 700
+}
+
+#sidebar li {
+    margin-left: 2rem;
+}
+
+#sidebar li a i {
+    width: 3rem;
+}
+
+#sidebar li a span {
+    font-size: 1.25rem;
+}
+
+.sidebar-line-breaker {
+    margin: 0.5rem 2rem;
+    color: #fff;
+}
+
+#btnUpdateDb {
+    font-size: 120%;
+    font-weight: 600;
+    color: #466cd9;
+}
+
+#btnUpdateDb:hover {
+    color: #466cd9;
+}
+
+.update-db-status {
+    display: none;
+    color: white;
+}
+
+#headerContainer, #sidebar > a {
+    height: 8vh;
+}
+
+#bodyContentContainer {
+    min-height: 80vh; background-color: #fefefe;
+}
+
+#footerContainer {
+    min-height: 10vh;
+    overflow: hidden;
+}
+
+#headerText {
+    font-weight: 700;
+}
+
+#companiesTable, #stocksTable {
+    overflow: hidden;
+}
+
+#companiesTable thead th,
+#stocksTable thead th,
+#trendIndicatorsTable thead th,
+#momentumIndicatorsTable thead th,
+#signalsTable thead th {
+    background-color: #466cd9;
+    color: #fff;
+}
+
+thead > tr > th {
+    background-color: #466cd9;
+    color: #fff;
+}
+
+.scrollable-table-container {
+    border-collapse: separate;
+    border-radius: 0.5rem;
+    border-spacing: 0;
+}
+
+.companies-container > div:first-child {
+    height: 10%;
+}
+
+.companies-container > div:nth-child(2) {
+    height: 90%;
+}
+
+.companies-container button {
+    background-color: #466cd9;
+}
+
+#sortLabel, #companyLabel,
+#yearLabel {
+    width: 50%;
+}
+
+#companyData {
+    display: none;
+}
+
+#chartHolder {
+    border-radius: 0.5rem;
+    background-color: #fff
+}

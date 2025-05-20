@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+
+    <link href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/webjars/bootstrap/5.3.3/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script th:src="@{/js/master-script.js}"></script>
+
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Playwrite+DE+Grund:wght@100..400&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div id="bodyContainer" class="container-fluid p-0 d-flex">
+    <ul id="sidebar" class="navbar-nav col-md-2 col-sm-3">
+        <a class="text-center d-flex justify-content-center align-items-center">
+            <i class="fa-solid fa-arrow-trend-up fa-3x text-light pe-2"></i>
+            <span style="">Rising Stocks</span>
+        </a>
+        <li class="nav-item d-flex justify-content-start align-items-center text-center">
+            <a class="nav-link text-light" href="/companies">
+                <i class="fa-solid fa-building fa-lg"></i>
+                <span>Companies</span>
+            </a>
+        </li>
+        <hr class="sidebar-line-breaker">
+        <li class="nav-item d-flex justify-content-start align-items-center text-center">
+            <a class="nav-link text-light" href="/stocks">
+                <i class="fa-solid fa-money-bill-trend-up fa-lg"></i>
+                <span>Stocks</span>
+            </a>
+        </li>
+        <li class="nav-item d-flex flex-wrap justify-content-start align-items-center text-center">
+            <div>
+                <button type="button" href="/update-database" id="btnUpdateDb" class="btn btn-light mt-4">Update Database</button>
+            </div>
+            <div class="ms-3 mt-2">
+                <span id="dbUpdatingStarted" class="update-db-status">Updating database...</span>
+                <span id="dbUpdatingFinished" class="update-db-status">Update finished!</span>
+                <span id="dbUpdatingFailed" class="update-db-status">Update failed.</span>
+            </div>
+        </li>
+    </ul>
+    <main class="container-fluid col-md-10 col-sm-9 flex-grow-1">
+        <div id="headerContainer" class="row mb-4 custom-shadow">
+            <header th:replace="~{fragments/header}"></header>
+        </div>
+
+        <div id="bodyContentContainer" th:insert="~{${bodyContent}}"></div>
+
+        <div id="footerContainer" class="row">
+            <footer th:replace="~{fragments/footer}"></footer>
+        </div>
+    </main>
+</div>
+</body>
+</html>

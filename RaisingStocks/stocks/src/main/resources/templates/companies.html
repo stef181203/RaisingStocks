@@ -1,0 +1,44 @@
+<script th:src="@{/js/companies-script.js}"></script>
+<div class="row m-2 justify-content-center companies-container">
+    <div class="row m-2">
+        <div class="col-md-8 col-sm-12">
+            <h3>Standard Company Information</h3>
+        </div>
+        <div class="col-md-4 col-sm-12">
+            <div class="d-flex">
+                <div id="sortLabel" class="d-flex align-items-center justify-content-end me-3">
+                    <span>Sorted by:</span>
+                </div>
+                <select id="sortFilterDropdown" class="form-select" aria-label="Select Sorting Method">
+                    <option value="code-asc" selected>Code - ascending</option>
+                    <option value="code-desc">Code - descending</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row m-2">
+        <div class="col-12">
+            <div class="table-responsive scrollable-table-container custom-shadow">
+                <table id="companiesTable" class="table table-hover mb-0">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Code</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Last Updated Turnover Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="d-flex align-items-center justify-content-center mt-4">
+                <button id="prevPage" class="btn btn-primary me-1 custom-shadow">Previous</button>
+                <button id="nextPage" class="btn btn-primary ms-1 custom-shadow">Next</button>
+            </div>
+        </div>
+    </div>
+</div>
